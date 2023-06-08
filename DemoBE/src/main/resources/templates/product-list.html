@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Product List</h1>
+    <a th:href="@{/products/add}" class="btn btn-primary">Add Product</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.status}"></td>
+            <td th:text="${product.category.name}"></td>
+            <td>
+                <a th:href="@{/products/{id}(id=${product.id})}">View Details</a>
+                <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-primary">Edit</a>
+                <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger">Delete</a>
+                <!--                <a class="btn btn-danger" onclick="confirmDelete([[${product.id}]])">Delete</a>-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>-->
+<!--<script>-->
+<!--    function confirmDelete(id) {-->
+<!--        if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {-->
+<!--            window.location.href = "/products/delete/" + id;-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+</body>
+</html>
