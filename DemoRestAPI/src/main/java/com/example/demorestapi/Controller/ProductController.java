@@ -1,29 +1,29 @@
 package com.example.demorestapi.Controller;
 
 import com.example.demorestapi.Model.Product;
-import com.example.demorestapi.Service.CategoryService;
 import com.example.demorestapi.Service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @CrossOrigin("*")
 @RestController
 public class ProductController {
-    private final ProductService productService;
-    private final CategoryService categoryService;
-
-    public ProductController(ProductService productService, CategoryService categoryService) {
-        this.productService = productService;
-        this.categoryService = categoryService;
-    }
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/products")
-    public List<Product> getProductList() {
-        return productService.getAllProducts();
+    public Page<Product> getProductList(@RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productService.getAllProducts(pageable);
     }
+
 
     @GetMapping("/products/{id}")
     public ResponseEntity<?> getProductDetails(@PathVariable Long id) {

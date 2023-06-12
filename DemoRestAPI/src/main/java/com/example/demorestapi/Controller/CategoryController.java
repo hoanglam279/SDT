@@ -3,26 +3,30 @@ package com.example.demorestapi.Controller;
 import com.example.demorestapi.Model.Category;
 import com.example.demorestapi.Service.CategoryService;
 import com.example.demorestapi.Service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 public class CategoryController {
-    private final CategoryService categoryService;
+    @Autowired
+    private CategoryService categoryService;
 
-    private final ProductService productService;
+    @Autowired
+    private ProductService productService;
 
-    public CategoryController(CategoryService categoryService, ProductService productService) {
-        this.categoryService = categoryService;
-        this.productService = productService;
-    }
 
     @GetMapping("/categories")
-    public List<Category> getCategoryList() {
-        return categoryService.getAllCategories();
+    public Page<Category> getCategoryList(@RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return categoryService.getAllCategories(pageable);
     }
 
     @GetMapping("/categories/{id}")
