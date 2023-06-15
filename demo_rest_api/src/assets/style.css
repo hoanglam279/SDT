@@ -1,0 +1,27 @@
+.form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.title{
+    text-align: center;
+}
+.btn-group {
+    margin-left: 5px;
+}
+.btn-group-cs{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+.container {
+    margin-top: 50px;
+}
+.background-modal {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.pagination {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: 20px;
+}
