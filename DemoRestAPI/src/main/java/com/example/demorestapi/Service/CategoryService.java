@@ -1,11 +1,12 @@
 package com.example.demorestapi.Service;
 
 import com.example.demorestapi.Model.Category;
+import com.example.demorestapi.Model.Product;
 import com.example.demorestapi.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -14,8 +15,8 @@ public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public Page<Category> getAllCategories(Pageable pageable) {
-        return categoryRepository.findAll(pageable);
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 
     public Category getCategoriesById(Long id) {
@@ -30,7 +31,11 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
-    public boolean isCategoryExists(Long id) {
-        return categoryRepository.existsById(id);
+    public Category findCategoryById(Long id) {
+        return categoryRepository.findCategoryById(id);
+    }
+
+    public boolean isCategoryNameExist(String categoryName) {
+        return categoryRepository.existsByName(categoryName);
     }
 }
